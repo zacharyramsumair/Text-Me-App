@@ -1,0 +1,18 @@
+Web Dev bootcamp 512
+
+after web dev bootcamp:
+1) seach 'calendar app express'
+2) seach 'calendar app javascript'
+3) seach 'calendar app node js'
+
+add google login using passport
+
+add calendar with bday and all the people you have to text ( minimum 2 months (this month and the next month))
+add bday to profile
+add crush? to role
+add important person eg. mom , dad, boss
+add default days for each role and the option to chose you own number of days
+and also some info after you chose the role and why in a muted text color
+
+add sidebar for upcoming and today
+find a way to send a email or a notification
