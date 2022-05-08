@@ -8,6 +8,22 @@ const UserSchema = new Schema({
 		required: true,
 		unique: true,
 	},
+	friends: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Friend",
+		},
+	],
+});
+
+UserSchema.post("findOneAndDelete", async function (doc) {
+	if (doc) {
+		await Friend.deleteMany({
+			_id: {
+				$in: doc.friends,
+			},
+		});
+	}
 });
 
 UserSchema.plugin(passportLocalMongoose);

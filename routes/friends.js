@@ -16,17 +16,34 @@ const validateFriend = (req, res, next) => {
 		next();
 	}
 };
+//make date
+Date.prototype.addDays = function (days) {
+	var date = new Date(this.valueOf());
+	date.setDate(date.getDate() + days);
+	return date;
+};
+
+let date = new Date();
+
+// console.log(date.addDays(5));
+//make date
 
 router.get(
 	"/",
 	catchAsync(async (req, res) => {
-		const friends = await Friend.find({});
+		const friends = await Friend.find({}).populate("author");
+		// console.log("==========", friends);
 		res.render("friends/index", { friends });
 	})
 );
 
 router.get("/new", isLoggedIn, (req, res) => {
 	res.render("friends/new");
+});
+
+router.get("/calendar", isLoggedIn, async (req, res) => {
+	const friends = await Friend.find({}).populate("author");
+	res.render("friends/calendar", { friends });
 });
 
 router.post(
@@ -36,7 +53,27 @@ router.post(
 	catchAsync(async (req, res, next) => {
 		// if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
 		const friend = new Friend(req.body.friend);
+		console.log(friend);
+		console.log(friend.level);
+
+		let string = JSON.stringify(date.addDays(friend.level));
+
+		let month = `${string[6]}${string[7]}`;
+		if (month[0] == "0") {
+			month = month[1];
+		}
+		console.log(month);
+		let day = `${string[9]}${string[10]}`;
+		if (day[0] == "0") {
+			day = day[1];
+		}
+		let year = `${string[1]}${string[2]}${string[3]}${string[4]}`;
+
+		let compressedDate = `${month}/${day}/${year}`;
+		friend.nextDate = compressedDate || "tomorrow";
+		friend.author = req.user._id;
 		await friend.save();
+		console.log(friend);
 		req.flash("success", "Successfully made a new friend!");
 
 		res.redirect(`/friends/${friend._id}`);
@@ -46,12 +83,13 @@ router.post(
 router.get(
 	"/:id",
 	catchAsync(async (req, res) => {
-		const friend = await Friend.findById(req.params.id);
+		const friend = await Friend.findById(req.params.id).populate("author");
 		if (!friend) {
 			req.flash("error", "Cannot find that friend!");
 
 			return res.redirect("/friends");
 		}
+		friend;
 		res.render("friends/show", { friend });
 	})
 );

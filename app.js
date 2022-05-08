@@ -58,6 +58,19 @@ app.use((req, res, next) => {
 	next();
 });
 
+//dates
+// Date.prototype.addDays = function (days) {
+// 	let date = new Date(this.valueOf());
+// 	date.setDate(date.getDate() + days);
+// 	return date;
+// };
+
+// let date = new Date();
+
+// console.log(date.addDays(5));
+
+//dates
+
 app.use("/", userRoutes);
 app.use("/friends", friendRoutes);
 

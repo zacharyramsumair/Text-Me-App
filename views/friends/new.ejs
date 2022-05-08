@@ -2,6 +2,16 @@
     <% layout('layouts/boilerplate')%>
     <div class="row">
         <h1 class="text-center">New friend</h1>
+        <%Date.prototype.addDays = function (days) {%>
+            <%let date = new Date(this.valueOf());%>
+            <%date.setDate(date.getDate() + days);%>
+            <%return date;%>
+        <%};%>
+        
+        <%let date = new Date();%>
+        <% let p = JSON. stringify(date.addDays(5)) %> 
+        
+     
         <div class="col-6 offset-3">
             <form action="/friends" method="POST" novalidate class="needs-validation">
                 <div class="mb-3">
@@ -10,18 +20,20 @@
                     <div class="valid-feedback">Looks good</div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="level">Level</label>
+                    <label class="form-label select" for="level">Level</label>
                         <select name="friend[level]" id="level" required>
                         <option value="">--Please choose an option--</option>
-                        <option value="BFF">BFF</option>
-                        <option value="Friend">Friend</option>
-                        <option value="Acquaintance">Acquaintance</option>
-                        <option value="Crush">Crush</option>
+                        <option value="2">BFF:2 days</option>
+                        <option value="7">Friend:7 days</option>
+                        <option value="35">Acquaintance: 35 days</option>
+                        <option value="10 ">Crush:10 days</option>
                     </select>
+
+            
                     <!-- <input class="form-control" type="text" id="level" name="friend[level]" required> -->
                     <div class="valid-feedback">Looks good</div>
 
-                </div>
+           
     
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>

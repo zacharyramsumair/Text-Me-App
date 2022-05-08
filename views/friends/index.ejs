@@ -5,7 +5,13 @@
     <div>
         <a href="/friends/new">Add friend</a>
     </div>
+
     <% for (let friend of friends){%>
+      
+        <% console.log("=====",friend) %> 
+        <%  console.log('=======',currentUser)%> 
+ 
+   <% if (friend.author.id == currentUser._id) { %>
     <div class="card" mb-3>
         <div class="row">
            
@@ -21,4 +27,8 @@
             </div>
         </div>
     </div>
+    <% } %> 
+   
+   
+  
     <% }%>

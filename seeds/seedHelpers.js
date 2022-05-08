@@ -2739,7 +2739,8 @@ module.exports.names = [
 	"Zuriel",
 ];
 
-module.exports.levels = ["BFF", "Friend", "Acquaintance"];
+// module.exports.levels = ["BFF", "Friend", "Acquaintance"];
+module.exports.levels = [2, 7, 35, 10];
 
 module.exports.descriptions = [
 	"just met",
