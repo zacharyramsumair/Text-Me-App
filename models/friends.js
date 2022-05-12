@@ -5,6 +5,7 @@ const FriendSchema = new Schema({
 	name: String,
 	image: String,
 	level: Number,
+	baseDate: Object,
 	nextDate: String,
 	description: String,
 	author: {
