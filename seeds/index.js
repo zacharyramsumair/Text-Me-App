@@ -44,7 +44,8 @@ const seedDB = async () => {
 			author: "625aa9c22fc8a01487bbaa5e",
 			name: `${sample(names)}`,
 			level: l,
-			baseDate: new Date(),
+			baseDate: new Date("2022-04-12T02:51:43.639Z"),
+			// baseDate: ISODate("2022-04-12T02:51:43.639Z"),
 			nextDate: compressedDate,
 			description: `${sample(descriptions)}`,
 		});

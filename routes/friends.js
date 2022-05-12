@@ -17,46 +17,55 @@ const validateFriend = (req, res, next) => {
 	}
 };
 
-const reloadBase = (friend) => {
-	let y = "";
-	let m = "";
-	let d = "";
-	let nextDate = friend.nextDate;
-	let baseDate = JSON.stringify(friend.baseDate);
-	console.log("base", baseDate);
-	console.log("next", nextDate);
-	// ??????????????????
-	let date = nextDate.split("/");
-	console.log(date);
-	//code for month
-	if (date[0] < 10) {
-		m = `0${date[0]}`;
-	} else {
-		m = `${date[0]}`;
+async function reloadBase(friends) {
+	for (let friend of friends) {
+		let y = "";
+		let m = "";
+		let d = "";
+		let nextDate = friend.nextDate;
+		console.log(friend.baseDate);
+		let baseDate = JSON.stringify(friend.baseDate);
+		// let todayDate = new Date();
+		// let baseDate = JSON.stringify(todayDate);
+
+		let date = nextDate.split("/");
+		// console.log(date);
+		//code for month
+		if (date[0] < 10) {
+			m = `0${date[0]}`;
+		} else {
+			m = `${date[0]}`;
+		}
+
+		//code for day
+		if (date[1] < 10) {
+			d = `0${date[1]}`;
+		} else {
+			d = `${date[1]}`;
+		}
+
+		y = date[2];
+
+		// this to is for 11:59:59:999 so the last millisecond before the next day
+		nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
+		// console.log("next2", nextDate);
+
+		if (baseDate > nextDate) {
+			baseDate = nextDate;
+		} else {
+			baseDate = baseDate;
+		}
+		let boo = baseDate < nextDate;
+		// console.log("if", boo);
+		// console.log("base2", baseDate);
+
+		//turn string baseDate to object
+
+		friend.baseDate = baseDate;
+
+		await friend.save();
 	}
-
-	//code for day
-	if (date[1] < 10) {
-		d = `0${date[1]}`;
-	} else {
-		d = `${date[1]}`;
-	}
-
-	y = date[2];
-
-	nextDate = `${y}-${m}-${d}T03:09:22.599Z`;
-	console.log("next2", nextDate);
-
-	if (baseDate < nextDate) {
-		baseDate = nextDate;
-	} else {
-		baseDate = baseDate;
-	}
-	let boo = baseDate < nextDate;
-	console.log("if", boo);
-	console.log("base2", baseDate);
-	return baseDate;
-};
+}
 
 const reloadNext = (friend) => {
 	// update Next date
@@ -106,8 +115,10 @@ router.get(
 		const friends = await Friend.find({}).populate("author");
 		// console.log("==========", friends);
 		// reload(friends);
-
+		reloadBase(friends);
 		res.render("friends/index", { friends });
+		console.log("friend 0:", friends[0]);
+		console.log("friend 1:", friends[1]);
 	})
 );
 
