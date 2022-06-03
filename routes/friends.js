@@ -23,60 +23,123 @@ const validateFriend = (req, res, next) => {
 	}
 };
 
-// async function reloadDates(friends) {
+async function reloadDate(friends) {
+	for (let friend of friends) {
+		let nextDate = friend.nextDate;
+		console.log("=================");
+		console.log("nextDate1", nextDate);
+
+		let baseDate = friend.baseDate;
+		let date = nextDate.split("/");
+		console.log("date", date);
+
+		if (date[0] < 10) {
+			m = `0${date[0]}`;
+		} else {
+			m = `${date[0]}`;
+		}
+
+		if (date[1] < 10) {
+			d = `0${date[1]}`;
+		} else {
+			d = `${date[1]}`;
+		}
+		console.log("d", d);
+
+		y = date[2];
+
+		// this to is for 11:59:59:999 so the last millisecond before the next day
+		// nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
+		nextDate = new Date(y, m - 1, d - 1, 23, 59, 59, 999);
+		console.log("nextDate2.1", nextDate);
+
+		// while (new Date() > nextDate) {
+
+		// }
+
+		//get date of today at 12:00 am
+
+		let today = JSON.stringify(new Date());
+
+		let month = `${today[6]}${today[7]}`;
+		// console.log(month);
+		if (month[0] == "0") {
+			// console.log(month);
+			// console.log(month[0]);
+			month = month[1];
+			// console.log(month);
+		}
+		// console.log(month);
+		let day = `${today[9]}${today[10]}`;
+		if (day[0] == "0") {
+			day = day[1];
+		}
+		let year = `${today[1]}${today[2]}${today[3]}${today[4]}`;
+
+		startToday = new Date(year, month - 1, day, 0, 0, 0, 0);
+		console.log("nextDate2.2", nextDate);
+
+		if (new Date() > nextDate) {
+			while (baseDate < startToday) {
+				baseDate = baseDate.addDays(friend.level);
+			}
+			//gonna change it by -1
+			// nextDate = baseDate.addDays(-1);
+			//end check
+
+			// nextDate = baseDate;
+			// console.log("===============");
+			// console.log("nextDay1", nextDate);
+			console.log("nextDate4", nextDate);
+
+			baseDate = baseDate.addDays(-friend.level);
+			nextDate = baseDate.addDays(friend.level);
+			console.log("nextDate5", nextDate);
+
+			// console.log("nextDay2", nextDate);
+
+			// console.log("===============");
+		}
+		console.log("nextDate6", nextDate);
+
+		nextDate = JSON.stringify(nextDate);
+		console.log("nextDate7", nextDate);
+
+		month = `${nextDate[6]}${nextDate[7]}`;
+		// console.log(month);
+		if (month[0] == "0") {
+			month = month[1];
+		}
+		// console.log(month);
+		day = `${nextDate[9]}${nextDate[10]}`;
+		if (day[0] == "0") {
+			day = day[1];
+		}
+		year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
+
+		let compressedDate = `${month}/${day}/${year}`;
+		console.log("nextDate8 compress", compressedDate);
+
+		// console.log("------------------------");
+		// console.log("compresses", compressedDate);
+		friend.nextDate = compressedDate;
+		friend.baseDate = baseDate;
+
+		await friend.save();
+	}
+}
+
+// async function reloadNext(friends) {
 // 	for (let friend of friends) {
-// 		// let nextDate = friend.nextDate;
-// 		// let date = nextDate.split("/");
-
-// 		// //next date string
-// 		// //code for month
-// 		// if (date[0] < 10) {
-// 		// 	m = `0${date[0]}`;
-// 		// } else {
-// 		// 	m = `${date[0]}`;
-// 		// }
-
-// 		// //code for day
-// 		// if (date[1] < 10) {
-// 		// 	d = `0${date[1]}`;
-// 		// } else {
-// 		// 	d = `${date[1]}`;
-// 		// }
-
-// 		// y = date[2];
-
-// 		// // this to is for 11:59:59:999 so the last millisecond before the next day
-// 		// nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
-// 		// nextDate = JSON.stringify(nextDate);
-
-// 		// console.log("enter while loop? :", JSON.stringify(new Date()) > nextDate);
-
-// 		// while (JSON.stringify(new Date()) > nextDate) {
-// 		// while (JSON.stringify(new Date()) > JSON.stringify(friend.baseDate)) {
-// 		let y = "";
-// 		let m = "";
-// 		let d = "";
-// 		let baseDate;
 // 		let nextDate = friend.nextDate;
-// 		let todayDate = new Date();
-// 		todayDate = JSON.stringify(todayDate);
-// 		// `${y}-${m}-${d}T03:59:59.999Z`
-// 		y = `${todayDate[0]}${todayDate[1]}${todayDate[2]}${todayDate[3]}`;
-// 		m = `${todayDate[5]}${todayDate[6]}`;
-// 		d = `${todayDate[8]}${todayDate[9]}`;
-// 		todayDate = new Date(y, m - 1, d, 0, 0, 0, 0);
-// 		todayDate = JSON.stringify(todayDate);
 // 		let date = nextDate.split("/");
 
-// 		//next date string
-// 		//code for month
 // 		if (date[0] < 10) {
 // 			m = `0${date[0]}`;
 // 		} else {
 // 			m = `${date[0]}`;
 // 		}
 
-// 		//code for day
 // 		if (date[1] < 10) {
 // 			d = `0${date[1]}`;
 // 		} else {
@@ -86,153 +149,80 @@ const validateFriend = (req, res, next) => {
 // 		y = date[2];
 
 // 		// this to is for 11:59:59:999 so the last millisecond before the next day
-// 		nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
-// 		// console.log("%%%%%%%%%%%%%%%%%%%%%%%");
-// 		// console.log("today", todayDate);
-// 		// console.log("next", nextDate);
-// 		// console.log(todayDate > nextDate);
-// 		// console.log("%%%%%%%%%%%%%%%%%%%%%%%");
-
-// 		if (todayDate > nextDate) {
-// 			baseDate = new Date(date[2], date[0] - 1, date[1], 0, 0, 0, 0);
-// 		} else {
-// 			baseDate = friend.baseDate;
+// 		// nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
+// 		nextDate = new Date(y, m - 1, d, 23, 59, 59, 999);
+// 		while (new Date() > nextDate) {
+// 			// i did -1 cause the dates ended up going one above for some reason
+// 			nextDate = nextDate.addDays(friend.level);
 // 		}
 
-// 		friend.baseDate = baseDate;
+// 		nextDate = JSON.stringify(nextDate);
+
+// 		let month = `${nextDate[6]}${nextDate[7]}`;
+// 		console.log(month);
+// 		if (month[0] == "0") {
+// 			// console.log(month);
+// 			// console.log(month[0]);
+// 			month = month[1];
+// 			// console.log(month);
+// 		}
+// 		console.log(month);
+// 		let day = `${nextDate[9]}${nextDate[10]}`;
+// 		if (day[0] == "0") {
+// 			day = day[1];
+// 		}
+// 		let year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
+
+// 		let compressedDate = `${month}/${day}/${year}`;
+// 		console.log("------------------------");
+// 		console.log("compresses", compressedDate);
+// 		friend.nextDate = compressedDate;
 
 // 		await friend.save();
-
-// 		// 		baseDate = friend.baseDate;
-// 		// 		// console.log(baseDate);
-// 		// 		nextdate = JSON.stringify(baseDate.addDays(friend.level));
-
-// 		// 		let month = `${nextDate[5]}${nextDate[6]}`;
-// 		// 		if (month[0] == "0") {
-// 		// 			month = month[1];
-// 		// 		}
-// 		// 		// console.log(month);
-// 		// 		let day = `${nextDate[8]}${nextDate[9]}`;
-// 		// 		if (day[0] == "0") {
-// 		// 			day = day[1];
-// 		// 		}
-// 		// 		let year = `${nextDate[0]}${nextDate[1]}${nextDate[2]}${nextDate[3]}`;
-
-// 		// 		compressedDate = `${month}/${day}/${year}`;
-
-// 		// 		friend.nextDate = compressedDate;
-
-// 		// 		await friend.save();
-// 		// 		console.log(friend.baseDate);
-// 		// 		console.log(friend.nextDate);
-// 		// 	}
 // 	}
 // }
 
-//make date
-
-async function reloadNext(friends) {
-	for (let friend of friends) {
-		let nextDate = friend.nextDate;
-		let date = nextDate.split("/");
-
-		if (date[0] < 10) {
-			m = `0${date[0]}`;
-		} else {
-			m = `${date[0]}`;
-		}
-
-		if (date[1] < 10) {
-			d = `0${date[1]}`;
-		} else {
-			d = `${date[1]}`;
-		}
-
-		y = date[2];
-
-		// this to is for 11:59:59:999 so the last millisecond before the next day
-		// nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
-		nextDate = new Date(y, m - 1, d, 23, 59, 59, 999);
-		while (new Date() > nextDate) {
-			nextDate = nextDate.addDays(friend.level);
-		}
-
-		nextDate = JSON.stringify(nextDate);
-
-		let month = `${nextDate[6]}${nextDate[7]}`;
-		console.log(month);
-		if (month[0] == "0") {
-			// console.log(month);
-			// console.log(month[0]);
-			month = month[1];
-			// console.log(month);
-		}
-		console.log(month);
-		let day = `${nextDate[9]}${nextDate[10]}`;
-		if (day[0] == "0") {
-			day = day[1];
-		}
-		let year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
-
-		let compressedDate = `${month}/${day}/${year}`;
-		console.log("compresses".compressedDate);
-		friend.nextDate = compressedDate;
-		await friend.save();
-	}
-}
-
-async function reloadBase(friends) {
-	for (let friend of friends) {
-		let nextDate = friend.nextDate;
-		let date = nextDate.split("/");
-
-		if (date[0] < 10) {
-			m = `0${date[0]}`;
-		} else {
-			m = `${date[0]}`;
-		}
-
-		if (date[1] < 10) {
-			d = `0${date[1]}`;
-		} else {
-			d = `${date[1]}`;
-		}
-
-		y = date[2];
-
-		// this to is for 11:59:59:999 so the last millisecond before the next day
-		// nextDate = `${y}-${m}-${d}T03:59:59.999Z`;
-		nextDate = new Date(y, m - 1, d, 23, 59, 59, 999);
-		// new Date(year, monthIndex, day, hours, minutes, seconds, milliseconds)
-		// nextDate = JSON.stringify(nextDate);
-
-		baseDate = nextDate.addDays(-1 * friend.level);
-		friend.baseDate = baseDate;
-		await friend.save();
-		nextDate = baseDate.addDays(friend.level);
-		//
-		nextDate = JSON.stringify(nextDate);
-
-		let month = `${nextDate[6]}${nextDate[7]}`;
-		console.log(month);
-		if (month[0] == "0") {
-			// console.log(month);
-			// console.log(month[0]);
-			month = month[1];
-			// console.log(month);
-		}
-		console.log(month);
-		let day = `${nextDate[9]}${nextDate[10]}`;
-		if (day[0] == "0") {
-			day = day[1];
-		}
-		let year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
-
-		let compressedDate = `${month}/${day}/${year}`;
-		friend.nextDate = compressedDate;
-		await friend.save();
-	}
-}
+// async function reloadBase(friends) {
+// 	for (let friend of friends) {
+// 		let nextDate = friend.nextDate;
+// 		let date = nextDate.split("/");
+// 		if (date[0] < 10) {
+// 			m = `0${date[0]}`;
+// 		} else {
+// 			m = `${date[0]}`;
+// 		}
+// 		if (date[1] < 10) {
+// 			d = `0${date[1]}`;
+// 		} else {
+// 			d = `${date[1]}`;
+// 		}
+// 		y = date[2];
+// 		nextDate = new Date(y, m - 1, d, 23, 59, 59, 999);
+// 		baseDate = nextDate.addDays(-1 * friend.level);
+// 		console.log("==================");
+// 		console.log("base", baseDate);
+// 		console.log("next", nextDate);
+// 		friend.baseDate = baseDate;
+// 		await friend.save();
+// 		// nextDate = baseDate.addDays(friend.level);
+// 		// //
+// 		// nextDate = JSON.stringify(nextDate);
+// 		// let month = `${nextDate[6]}${nextDate[7]}`;
+// 		// if (month[0] == "0") {
+// 		// 	month = month[1];
+// 		// }
+// 		// let day = `${nextDate[9]}${nextDate[10]}`;
+// 		// if (day[0] == "0") {
+// 		// 	day = day[1];
+// 		// }
+// 		// let year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
+// 		// let compressedDate = `${month}/${day}/${year}`;
+// 		// console.log("next com", compressedDate);
+// 		// console.log("==================");
+// 		// friend.nextDate = compressedDate;
+// 		// await friend.save();
+// 	}
+// }
 
 // let date = new Date();
 
@@ -245,10 +235,12 @@ router.get(
 		const friends = await Friend.find({}).populate("author");
 
 		// reloadDates(friends);
-		await reloadNext(friends);
-		await reloadBase(friends);
+		// await reloadNext(friends);
+		// await reloadBase(friends);
+		await reloadDate(friends);
 
-		res.render("friends/index", { friends });
+		//change this to index when done ; but in indexDeveloper while making changes
+		res.render("friends/indexDeveloper", { friends });
 		// console.log("friend 0:", friends[0]);
 		// console.log("friend 1:", friends[1]);
 	})
@@ -270,10 +262,10 @@ router.post(
 	catchAsync(async (req, res, next) => {
 		// if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
 		const friend = new Friend(req.body.friend);
-		reloadDate(friend);
-		// console.log(friend);
-		// console.log(friend.level);
 
+		// console.log(" here ", friend);
+		// console.log(friend.level);
+		let date = new Date();
 		let string = JSON.stringify(date.addDays(friend.level));
 
 		let month = `${string[6]}${string[7]}`;
@@ -290,7 +282,7 @@ router.post(
 		let compressedDate = `${month}/${day}/${year}`;
 		friend.baseDate = new Date();
 
-		friend.nextDate = compressedDate || "tomorrow";
+		friend.nextDate = compressedDate;
 		friend.author = req.user._id;
 		await friend.save();
 		// console.log(friend);
@@ -309,8 +301,34 @@ router.get(
 
 			return res.redirect("/friends");
 		}
+		//doing the update and seeing what happens
+		let baseDate = friend.baseDate;
+		let nextDate = baseDate.addDays(friend.level);
+		nextDate = JSON.stringify(nextDate);
+
+		month = `${nextDate[6]}${nextDate[7]}`;
+		// console.log(month);
+		if (month[0] == "0") {
+			month = month[1];
+		}
+		// console.log(month);
+		day = `${nextDate[9]}${nextDate[10]}`;
+		if (day[0] == "0") {
+			day = day[1];
+		}
+		year = `${nextDate[1]}${nextDate[2]}${nextDate[3]}${nextDate[4]}`;
+
+		let compressedDate = `${month}/${day}/${year}`;
+		friend.nextDate = compressedDate;
+		// console.log("------------------------");
+		// console.log("compresses", compressedDate);
+
+		//update
+
+		friend.save();
+
 		// friend;
-		reloadBase(friend);
+		// reloadBase(friend);
 		res.render("friends/show", { friend });
 	})
 );
@@ -337,6 +355,9 @@ router.put(
 		const { id } = req.params;
 		const friend = await Friend.findByIdAndUpdate(id, {
 			...req.body.friend,
+			// do friend.nedxt = basedate.adddays(friend.level)
+			//then turn it from an object bcak to m/d/y
+			// await friend.save
 		});
 		req.flash("success", "Successfully updated a friend!");
 
