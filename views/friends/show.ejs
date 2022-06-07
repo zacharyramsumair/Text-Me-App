@@ -6,11 +6,16 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title"><%= friend.name%></h5>
+                    <h5 class="card-title">
+                        <%= friend.category%>
+                    </h5>
                     <p class="card-text"><%= friend.level%></p>
                     <p class="card-text">NEXT TEXT: <%= friend.nextDate%></p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-muted"><%= friend.description%></li>
+                    <li class="list-group-item text-muted">
+                        <%= friend.description%>
+                    </li>
                 </ul>
                 <div class="card-body">
                     <a class="card-link btn btn-info" href="/friends/<%=friend._id%>/edit">Edit</a>

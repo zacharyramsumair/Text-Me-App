@@ -1,35 +1,93 @@
 <% layout('layouts/boilerplate')%>
 
-    <h1>All friends</h1>
-    <div>
-        <a href="/friends/new">Add friend</a>
-    </div>
+<h1>All friends</h1>
+<div>
+    <a href="/friends/new">Add friend</a>
+</div>
 
-    <% for (let friend of friends){%>
+<h2>People</h2>
+<% for (let friend of friends){%>
+    <% if (friend.author.id==currentUser._id) { %>
+        <% if (friend.category=="People" ){ %>
+            <div class="card" mb-3>
+                <div class="row">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%= friend.name %>
+                </h5>
+                <p class="card-text">
+                    <%= friend.level %>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <%= friend.description%>
+                    </small>
+                </p>
+                <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%></a>
+            </div>
+        </div>
+        </div>
+        </div>
+        <% } %>
+            <% }%>
+                <% }%>
 
-        <% console.log("=====",friend) %> 
-        <% if (friend.author.id==currentUser._id) { %>
-    <div class=" card" mb-3>
-            <div class="row">
+<h2>Life Maintenance</h2>
+<% for (let friend of friends){%>
+    <% if (friend.author.id==currentUser._id) { %>
+        <% if (friend.category=="Life Maintenance" ){ %>
+            <div class="card" mb-3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= friend.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= friend.level %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= friend.description%>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%>
+                            </a>
+                            </div>
+                            </div>
+                            </div>
+            </div>
+                <% } %>
+                    <% }%>
+                        <% }%>
 
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%= friend.name %>
-                        </h5>
-                        <p class="card-text">
-                            <%= friend.level %>
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <%= friend.description%>
-                            </small>
-                        </p>
-                        <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%></a>
+
+<h2>Other</h2>
+<% for (let friend of friends){%>
+    <% if (friend.author.id==currentUser._id) { %>
+        <% if (friend.category=="Other" ){ %>
+            <div class="card" mb-3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= friend.name %>
+                            </h5>
+                            <p class="card-text">
+                                <%= friend.level %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= friend.description%>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-            <% } %>
-
                 <% } %>
+                    <% }%>
+                        <% }%>

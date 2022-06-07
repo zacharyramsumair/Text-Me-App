@@ -25,7 +25,7 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
 	await Friend.deleteMany({});
 
-	for (let i = 0; i < 1; i++) {
+	for (let i = 0; i < 0; i++) {
 		let l = `${sample(levels)}`;
 		let string = JSON.stringify(date.addDays(l));
 		let month = `${string[6]}${string[7]}`;
@@ -45,6 +45,7 @@ const seedDB = async () => {
 			author: "625aa9c22fc8a01487bbaa5e",
 			name: `${sample(names)}`,
 			level: 3,
+			category: "People",
 			// level: l,
 			baseDate: new Date("2022-05-26T02:51:43.639Z"),
 			// baseDate: ISODate("2022-04-12T02:51:43.639Z"),

@@ -5,28 +5,88 @@
     <div>
         <a href="/friends/new">Add friend</a>
     </div>
+    
+check for day then display then go and add in the line with currentUser and author id
 
+<h2>People</h2>
     <% for (let friend of friends){%>
     
-    
-        
+        <% if (friend.category=="People" ){ %>
     <div class="card" mb-3>
         <div class="row">
-           
+
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><%= friend.name %> </h5>
-                    <p class="card-text"><%= friend.level %></p>
+                    <h5 class="card-title">
+                        <%= friend.name %>
+                    </h5>
                     <p class="card-text">
-                        <small class="text-muted"><%= friend.description%></small>
+                        <%= friend.level %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= friend.description%>
+                                </small>
                     </p>
                     <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%></a>
                 </div>
             </div>
-        </div>
-    </div>
+            </div>
+            </div>
+            <% } %>
+                <% }%>
 
-   
-   
-  
-    <% }%>
+<h2>Life Maintenance</h2>
+<% for (let friend of friends){%>
+
+    <% if (friend.category=="Life Maintenance" ){ %>
+        <div class="card" mb-3>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= friend.name %>
+                        </h5>
+                        <p class="card-text">
+                            <%= friend.level %>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= friend.description%>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+            <% }%>
+                
+                        <h2>Other</h2>
+                        <% for (let friend of friends){%>
+    
+                    <% if (friend.category=="Other" ){ %>
+                        <div class="card" mb-3>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= friend.name %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= friend.level %>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                <%= friend.description%>
+                                            </small>
+                                        </p>
+                                        <a class="btn btn-primary" href="/friends/<%=friend._id%>">View <%=friend.name%></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% }%>
+            

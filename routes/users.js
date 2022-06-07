@@ -4,6 +4,9 @@ const passport = require("passport");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/user");
 
+
+
+
 router.get("/register", (req, res) => {
 	res.render("users/register");
 });
@@ -50,5 +53,7 @@ router.get("/logout", (req, res) => {
 	req.flash("success", "Goodbye!");
 	res.redirect("/");
 });
+
+
 
 module.exports = router;
