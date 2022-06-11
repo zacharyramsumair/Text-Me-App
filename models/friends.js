@@ -8,6 +8,7 @@ const FriendSchema = new Schema({
 	level: Number,
 	baseDate: Object,
 	nextDate: String,
+	displayedNextDate: String,
 	category: {
 		type: String,
 		possibleValues: ["People", "Life Maintenance", "Other"],
