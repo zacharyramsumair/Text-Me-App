@@ -21,6 +21,8 @@ const validateFriend = (req, res, next) => {
 	// } else {
 	// 	next();
 	// }
+
+	//start
 	const { error1 } = friendSchema.validate(req.body.name);
 	const { error2 } = friendSchema.validate(req.body.level);
 	const { error3 } = friendSchema.validate(req.body.description);
@@ -40,6 +42,8 @@ const validateFriend = (req, res, next) => {
 			}
 		}
 	}
+
+	//end
 };
 
 async function reloadDate(friends) {
@@ -124,6 +128,8 @@ async function reloadDate(friends) {
 		friend.nextDate = compressedDate;
 		friend.baseDate = baseDate;
 
+		console.log( "reload Next", friend.nextDate)
+		console.log( "reload base", friend.baseDate)
 		await friend.save();
 	}
 }
@@ -148,7 +154,8 @@ router.get(
 		}
 		let year = `${makeSure[1]}${makeSure[2]}${makeSure[3]}${makeSure[4]}`;
 
-		let reallyMakeSure = new Date(year, month-1 , day-1)
+		let reallyMakeSure = new Date(year, month-1 , day)
+		// let reallyMakeSure = new Date(year, month-1 , day-1)
 		//end make sure
 		//get today date and date for the next 7 days
 		let todayDate = reallyMakeSure
@@ -203,20 +210,19 @@ router.get(
 
 		await reloadDate(friends);
 
-		//change this to index when done ; but in indexDeveloper while making changes
-		// res.render("friends/indexDeveloper2", {
-		// 	friends,
-		// 	todayDate,
-		// 	todayAndOne,
-		// 	upcomingDays,
-		// });
-
-		//index
-		res.render("friends/index", {
+		
+		res.render("friends/indexDeveloper2", {
 			friends,
 			todayDate,
 			upcomingDays,
 		});
+
+		
+		// res.render("friends/index", {
+		// 	friends,
+		// 	todayDate,
+		// 	upcomingDays,
+		// });
 
 		//this is the end
 	})
@@ -237,6 +243,25 @@ router.post(
 	validateFriend,
 	catchAsync(async (req, res, next) => {
 		// if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+
+		//start 
+		// const { name, description, level, category  } = req.body;
+		// const friend = new Friend({ name, description, level, category  });
+		// const friend = new Friend(req.body.friend);
+		// eval(locus);
+		//end
+		
+		// console.log('this si the req',req.body)
+		// const friend = new Friend({
+		// 	name : req.body.name,
+		// 	category : req.body.category,
+		// 	level : req.body.level,
+		// 	description : req.body.description,
+		// });
+
+		// console.log('this si my friend',friend)
+
+
 		const friend = new Friend(req.body.friend);
 
 		//make sure we really get todays date
@@ -254,7 +279,7 @@ router.post(
 		}
 		let year = `${makeSure[1]}${makeSure[2]}${makeSure[3]}${makeSure[4]}`;
 
-		let reallyMakeSure = new Date(year, month-1 , day-1)
+		let reallyMakeSure = new Date(year, month-1 , day)
 		// reallyMakeSure=reallyMakeSure.toDateString()
 		// end of make sure
 

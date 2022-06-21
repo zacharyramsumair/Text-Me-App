@@ -1,53 +1,56 @@
 
 
     <% layout('layouts/boilerplate')%>
-    <div class="row">
-        <h1 class="text-center">Edit friend</h1>
-        <div class="col-6 offset-3">
-            <form action="/friends/<%=friend._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
-                <div class="mb-3">
-                    <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" id="name" name="friend[name]"  required
-                        value="<%=friend.name %>">
-                </div>
-
-
-                <div class="mb-3">
-                    <label class="form-label select" for="level"> How often (days)</label>
-                    <input type="number" id="level" name="friend[level]" min="0" max="100" placeholder="<%= friend.level %> " required>
-                    <div class="valid-feedback">Looks good</div>
-                    </div>
-
-                
+    <div class="center-new-edit">
+        <div class="row">
+            <h1 class="text-center">Edit friend</h1>
+            <div class="col-6 offset-3">
+                <form action="/friends/<%=friend._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
                     <div class="mb-3">
-                        <div>
-                            <input type="radio" id="People" name="friend[category]" required value="People" checked>
-                            <label for="People">People</label>
-                        </div>
-                    
-                        <div>
-                            <input type="radio" id="Life Maintenance" name="friend[category]" required value="Life Maintenance">
-                            <label for="Life Maintenance">Life Maintenance</label>
-                        </div>
-                    
-                        <div>
-                            <input type="radio" id="Other" name="friend[category]" required value="Other">
-                            <label for="Other">Other</label>
-                        </div>
-                        <div class="valid-feedback">Looks good</div>
+                        <label class="form-label" for="name">Name</label>
+                        <input class="form-control" type="text" id="name" name="friend[name]"  required
+                            value="<%=friend.name %>">
                     </div>
-
     
-                <div class="mb-3">
-                    <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" id="description" required
-                        name="friend[description]"><%= friend.description%></textarea>
-                </div>
-                <div class="mb-3">
-                    <button class="btn btn-info">Update friend</button>
-                </div>
-            </form>
-            <a href="/friends/<%= friend._id%>">Back To friend</a>
     
+                    <div class="mb-3">
+                        <label class="form-label select" for="level"> How often (days)</label>
+                        <input type="number" id="level" name="friend[level]" min="0" max="100" placeholder="<%= friend.level %> " required>
+                        <div class="valid-feedback">Looks good</div>
+                        </div>
+    
+                    
+                        <div class="mb-3">
+                            <div>
+                                <input type="radio" id="People" name="friend[category]" required value="People" checked>
+                                <label for="People">People</label>
+                            </div>
+                        
+                            <div>
+                                <input type="radio" id="Life Maintenance" name="friend[category]" required value="Life Maintenance">
+                                <label for="Life Maintenance">Life Maintenance</label>
+                            </div>
+                        
+                            <div>
+                                <input type="radio" id="Other" name="friend[category]" required value="Other">
+                                <label for="Other">Other</label>
+                            </div>
+                            <div class="valid-feedback">Looks good</div>
+                        </div>
+    
+        
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" type="text" id="description" required
+                            name="friend[description]"><%= friend.description%></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-info">Update friend</button>
+                    </div>
+                </form>
+                <a href="/friends/<%= friend._id%>">Back To friend</a>
+        
+            </div>
         </div>
     </div>
+    
