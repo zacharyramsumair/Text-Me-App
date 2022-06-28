@@ -2,11 +2,15 @@
 	box-sizing: border-box;
 }
 
+:root{
+      --bs-body-bg: #121212;
+}
+
 body {
   display: flex;
   margin-top: 50px;
   justify-content: center;
-  background-color: #FFFCFF;
+  background-color: #121212 !important ;
   height: 100%;
 
 	flex-direction: column;
@@ -25,7 +29,7 @@ button {
 
 #header {
   padding: 10px;
-  color: #d36c6c;
+  color: #03DAC6;
   font-size: 26px;
   font-family: sans-serif;
   display: flex;
@@ -40,7 +44,7 @@ button {
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: #03DAC6;
   justify-content: space-evenly;
   text-align: center;
 }
@@ -60,7 +64,8 @@ button {
   height: 100px;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: white;
+  background-color: #1F1B24;
+  color: white;
   margin: 5px;
   box-shadow: 0px 0px 3px #CBD4C2;
   display: flex;
@@ -68,16 +73,16 @@ button {
   justify-content: space-between;
 }
 .day:hover {
-  background-color: #e8faed;
+  background-color: #7E7E7E;
 }
 
 .day + #currentDay {
-  background-color:#e8f4fa;
+  background-color: #616161;
 }
 .event {
   font-size: 10px;
   padding: 3px;
-  background-color: #58bae4;
+  background-color: #03DAC6;
   color: white;
   border-radius: 5px;
   max-height: 55px;
@@ -85,7 +90,6 @@ button {
 }
 .padding {
   cursor: default !important;
-  background-color: #FFFCFF !important;
   box-shadow: none !important;
 }
 #newEventModal, #deleteEventModal {
@@ -139,3 +143,12 @@ button {
   justify-content: center;
   margin: auto;
 }
+
+
+.navbar-brand {
+	color: #03DAC5 !important;
+}
+
+/* #header button{
+background-color: #BB86FC;
+} */

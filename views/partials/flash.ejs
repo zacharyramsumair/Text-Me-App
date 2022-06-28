@@ -1,8 +1,8 @@
 <% if(success && success.length) {%>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show flash-alert" role="alert">
         <%= success %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="close close-right btn-close" data-dismiss="alert" aria-label="Close" onClick="document.location.reload(true)">
+            
         </button>
     </div>
     <% } %>
@@ -10,8 +10,9 @@
     <% if(error && error.length) {%>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= error %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <button type="button" class="close close-right btn-close" data-dismiss="alert" aria-label="Close" onClick="document.location.reload(true)">
+          
         </button>
     </div>
     <% } %>
+

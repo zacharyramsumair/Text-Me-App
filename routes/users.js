@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const sgMail = require("@sendgrid/mail");
 const crypto = require("crypto");
 require("dotenv").config();
+require("../public/javascripts/auth")
 
 router.get("/register", (req, res) => {
 	res.render("users/register");
@@ -63,6 +64,8 @@ router.get("/logout", (req, res) => {
 router.get("/forgot", function (req, res) {
 	res.render("users/forgot"  );
 });
+
+
 
 router.get("/forgotConfirm", function (req, res) {
 	res.render("users/forgotConfirm"  );
@@ -288,5 +291,15 @@ router.post("/reset/:token", function (req, res) {
 		// });
 	]);
 });
+
+router.get('/login/google', passport.authenticate('google'));
+router.get('/login/google', passport.authenticate('google', {
+	scope: [ 'email' ]
+  }));
+  router.get('/oauth2/redirect/google',
+  passport.authenticate('google', { failureRedirect: '/login', failureMessage: true }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 module.exports = router;

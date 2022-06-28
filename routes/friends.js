@@ -135,7 +135,8 @@ async function reloadDate(friends) {
 }
 
 router.get(
-	"/",
+	// "/", isLoggedIn,
+	"/", 
 	catchAsync(async (req, res) => {
 		const friends = await Friend.find({}).populate("author");
 
@@ -155,6 +156,7 @@ router.get(
 		let year = `${makeSure[1]}${makeSure[2]}${makeSure[3]}${makeSure[4]}`;
 
 		let reallyMakeSure = new Date(year, month-1 , day)
+		console.log('really', reallyMakeSure)
 		// let reallyMakeSure = new Date(year, month-1 , day-1)
 		//end make sure
 		//get today date and date for the next 7 days
