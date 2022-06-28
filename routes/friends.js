@@ -234,6 +234,10 @@ router.get("/new", isLoggedIn, (req, res) => {
 	res.render("friends/new");
 });
 
+router.get("/test",  (req, res) => {
+	res.render("friends/test");
+});
+
 router.get("/calendar", isLoggedIn, async (req, res) => {
 	const friends = await Friend.find({}).populate("author");
 	res.render("friends/calendar", { friends });
