@@ -5,21 +5,23 @@
 		<header class="header text-center">
 			<h1>All Reminders</h1>
 			<div>
-				<a href="/friends/new" id="add-friend" class=" btn btn-teal btn-index">Add Reminder</a>
+				<a href="/friends/new" id="add-friend" class=" btn btn-teal btn-index btn-lg">Add Reminder</a>
 			</div>
 		</header>
 	
-		
+		<% let NumberOfItems = 0 %> 
 		<section class="section-today">
-			<h2 class="text-center">Today</h2>
+			<h2 class="text-center ">Today</h2>
 		
 			<% for (let friend of friends){ %> 
+				<% if (friend.author.id==currentUser._id) { %>
 				<% if (friend.nextDate==todayDate) {%> 
+					<% NumberOfItems =  NumberOfItems+1%> 
 				<div class="card card-today" mb-3>
 					<div class="  row row-card">
 						<div class="col-md-8">
 							<div class="card-body today-center">
-								<h5 class="card-title">
+								<h5 class="card-title card-title-main">
 						<%if (friend.name.length > 23){ %>
 							<%= friend.name.substring(0, 20) %>...
 						<% }else{%>
@@ -42,23 +44,35 @@
 							</div>
 						</div>
 					</div>
+
+					
+					
 				</div> 
 			<% } %> 
 			<% } %>
+			<% } %>
+
+			<% if(NumberOfItems == 0){ %> 
+				<h4 class="placeholder-top-half">No Reminders Today</h4>
+				
+			<% } %> 
+
 		</section>
 			
 	
 		
 <div class="section-upcoming">
-			<h2 class="text-center">Upcoming</h2>
+			<h2 class="text-center ">Upcoming</h2>
 			<% for (let i = 0; i < upcomingDays.length; i++) { %> 
 			<% for (let friend of friends){ %> 
+				<% if (friend.author.id==currentUser._id) { %>
 				<% if (friend.nextDate==upcomingDays[i]) {%> 
+					<% NumberOfItems =  NumberOfItems+1%> 
 					<div class="card card-upcoming" mb-3>
 						<div class="row row-card">
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">
+									<h5 class="card-title card-title-main">
 						<%if (friend.name.length > 23){ %>
 							<%= friend.name.substring(0, 20) %>...
 						<% }else{%>
@@ -89,13 +103,19 @@
 				<% } %> 
 				<% }%> 
 				<% } %>
+				<% } %>
+
+				<% if(NumberOfItems == 0){ %> 
+					<h4 class="placeholder-top-half">No Reminders for the next 7 Days</h4>
+					
+				<% } %> 
 	</div>
 	
 </div>	
 </div>
 
 <div class="text-center text-white categories-heading">
-	<h2>Categories</h2>
+	<h2 >Categories</h2>
 </div>
 
 <div class="section-categories text-white">
@@ -104,7 +124,7 @@
 		<h2 class="category-heading">People</h2>
 		<% let count = 1 %> 
 			<% for (let friend of friends){%> 
-			
+				<% if (friend.author.id==currentUser._id) { %>
 			<% if (friend.category=="People" ){ %>
 				
 			<div  class="card card-section ">
@@ -121,7 +141,7 @@
 								<div class="card-body card-category ">
 								<% } %> 
 						
-							<h5 class="card-title">
+							<h5 class="card-title card-title-main">
 						<%if (friend.name.length > 23){ %>
 							<%= friend.name.substring(0, 20) %>...
 						<% }else{%>
@@ -153,6 +173,7 @@
 			<% } %>
 			
 			 <% }%>
+			 <% }%>
 	</section>
 			
 
@@ -160,6 +181,7 @@
 		<h2 class="category-heading">Life Maintenance</h2>
 		<% count = 1 %>
 		<% for (let friend of friends){%> 
+			<% if (friend.author.id==currentUser._id) { %>
 		<% if (friend.category=="Life Maintenance" ){%>
 			<div  class="card card-section ">
 				<% if(count % 2 == 0){ %> 
@@ -175,7 +197,7 @@
 								<div class="card-body card-category ">
 								<% } %> 
 						
-							<h5 class="card-title">
+							<h5 class="card-title card-title-main">
 						<%if (friend.name.length > 23){ %>
 							<%= friend.name.substring(0, 20) %>...
 						<% }else{%>
@@ -205,6 +227,7 @@
 			<% count = count +1 %>
 
 			<% } %>
+			<% } %>
 			
 			 <% }%>
 	</section>
@@ -214,6 +237,7 @@
 		<h2 class="category-heading">Other</h2>
 		<% count = 1 %>
 		<% for (let friend of friends){%> 
+			<% if (friend.author.id==currentUser._id) { %>
 		<% if (friend.category=="Other" ){%>
 			<div  class="card card-section ">
 				<% if(count % 2 == 0){ %> 
@@ -229,7 +253,7 @@
 								<div class="card-body card-category ">
 								<% } %> 
 						
-							<h5 class="card-title">
+							<h5 class="card-title card-title-main">
 						<%if (friend.name.length > 23){ %>
 							<%= friend.name.substring(0, 20) %>...
 						<% }else{%>
@@ -258,6 +282,7 @@
 			</div>
 			<% count = count +1 %>
 
+			<% } %>
 			<% } %>
 			
 			 <% }%>

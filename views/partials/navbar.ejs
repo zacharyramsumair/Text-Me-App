@@ -4,12 +4,12 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <% console.log(currentUser == undefined) %> 
+     
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <% if(currentUser !== undefined) {%> 
         
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="/friends" id="nav-link-index">Reminder</a>
+            <a class="nav-link active" aria-current="page" href="/friends" id="nav-link-index">Reminders</a>
             <a class="nav-link" href="/friends/new" id="nav-link-new">New Reminder</a>
             <a class="nav-link" href="/friends/calendar" id="nav-link-calendar">Calendar</a>
           
@@ -32,8 +32,14 @@
           
           <% } else { %> 
 
+            <%if (currentUser.username.length > 50){ %>
+							<a class="navbar-brand main-nav-text" href="#"><%= currentUser.username.substring(0, 50) %>...</a>
+						<% }else{%>
+							<a class="navbar-brand main-nav-text" href="#"><%= currentUser.username.substring(0, 50) %></a> 
+							<%} %>
+
             
-          <a class="navbar-brand main-nav-text" href="#"><%= currentUser.username %></a>  
+           
           <a class="nav-link" id="nav-link-logout" href="/logout">Logout</a>
           <% } %> 
         </div>

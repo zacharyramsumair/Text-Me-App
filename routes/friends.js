@@ -128,15 +128,15 @@ async function reloadDate(friends) {
 		friend.nextDate = compressedDate;
 		friend.baseDate = baseDate;
 
-		console.log( "reload Next", friend.nextDate)
-		console.log( "reload base", friend.baseDate)
+		// console.log( "reload Next", friend.nextDate)
+		// console.log( "reload base", friend.baseDate)
 		await friend.save();
 	}
 }
 
 router.get(
-	// "/", isLoggedIn,
-	"/", 
+	"/", isLoggedIn,
+	// "/", 
 	catchAsync(async (req, res) => {
 		const friends = await Friend.find({}).populate("author");
 
@@ -156,7 +156,7 @@ router.get(
 		let year = `${makeSure[1]}${makeSure[2]}${makeSure[3]}${makeSure[4]}`;
 
 		let reallyMakeSure = new Date(year, month-1 , day)
-		console.log('really', reallyMakeSure)
+		// console.log('really', reallyMakeSure)
 		// let reallyMakeSure = new Date(year, month-1 , day-1)
 		//end make sure
 		//get today date and date for the next 7 days
@@ -208,7 +208,7 @@ router.get(
 		];
 		//end
 
-		console.log('todayDate',todayDate)
+		// console.log('todayDate',todayDate)
 
 		await reloadDate(friends);
 
@@ -321,7 +321,7 @@ router.post(
 		friend.author = req.user._id;
 		await friend.save();
 		// console.log(friend);
-		req.flash("success", "Successfully made a new friend!");
+		req.flash("success", "Successfully made a new reminder!");
 
 		res.redirect(`/friends/${friend._id}`);
 	})
@@ -332,7 +332,7 @@ router.get(
 	catchAsync(async (req, res) => {
 		const friend = await Friend.findById(req.params.id).populate("author");
 		if (!friend) {
-			req.flash("error", "Cannot find that friend!");
+			req.flash("error", "Cannot find that reminder!");
 
 			return res.redirect("/friends");
 		}
@@ -373,7 +373,7 @@ router.get(
 	catchAsync(async (req, res) => {
 		const friend = await Friend.findById(req.params.id);
 		if (!friend) {
-			req.flash("error", "Cannot find that friend!");
+			req.flash("error", "Cannot find that reminder!");
 
 			return res.redirect("/friends");
 		}
@@ -393,7 +393,7 @@ router.put(
 			//then turn it from an object bcak to m/d/y
 			// await friend.save
 		});
-		req.flash("success", "Successfully updated a friend!");
+		req.flash("success", "Successfully updated a reminder!");
 
 		res.redirect(`/friends/${friend._id}`);
 	})
@@ -405,7 +405,7 @@ router.delete(
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		await Friend.findByIdAndDelete(id);
-		req.flash("success", "Successfully deleted a friend!");
+		req.flash("success", "Successfully deleted a reminder!");
 
 		res.redirect("/friends");
 	})

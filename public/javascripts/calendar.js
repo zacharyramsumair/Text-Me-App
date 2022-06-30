@@ -94,7 +94,7 @@ function load() {
 					if (friend.nextDate == dayString) {
 						const eventDiv = document.createElement("div");
 						eventDiv.classList.add("event");
-						eventDiv.innerText = `Text ${friend.name}`;
+						eventDiv.innerText = `${friend.name}`;
 						daySquare.appendChild(eventDiv);
 					}
 				}

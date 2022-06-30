@@ -3,7 +3,7 @@
     <% layout('layouts/boilerplate')%>
     <div class="center-new-edit">
         <div class="row">
-            <h1 class="text-center">Edit friend</h1>
+            <h1 class="text-center">Edit Reminder</h1>
             <div class="col-6 offset-3">
                 <form action="/friends/<%=friend._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
                     <div class="mb-3">
@@ -14,8 +14,9 @@
     
     
                     <div class="mb-3">
-                        <label class="form-label select" for="level"> How often (days)</label>
-                        <input type="number" id="level" name="friend[level]" min="0" max="100" placeholder="<%= friend.level %> " required>
+                        <label class="form-label select" for="level"> How often (every x days)</label>
+                        <input type="number" id="level" name="friend[level]" min="0" max="100"  required
+                        value="<%=friend.level %>">
                         <div class="valid-feedback">Looks good</div>
                         </div>
     
@@ -45,10 +46,10 @@
                             name="friend[description]"><%= friend.description%></textarea>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-info">Update friend</button>
+                        <button class="btn btn-info">Update Reminder</button>
                     </div>
                 </form>
-                <a href="/friends/<%= friend._id%>">Back To friend</a>
+                <a href="/friends/<%= friend._id%>">Back To Reminder</a>
         
             </div>
         </div>

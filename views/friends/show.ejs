@@ -6,19 +6,35 @@
         <div class="col-6 ">
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title"><%= friend.name%></h5>
-                    <h5 class="card-title">
-                        <%= friend.category%>
-                    </h5>
-                    <p class="card-text"><%= friend.level%></p>
-                    <p class="card-text">NEXT TEXT: <%= friend.nextDate%></p>
-                    <p class="card-text">NEXT TEXT: <%= friend.displayedNextDate%></p>
+                    <h4 class="card-title mb-3"><%= friend.name%></h4>
+                    <p class="card-text">
+                        Category : <%= friend.category%>
+                    </p>
+                    
+                    <% if(friend.level ==1){ %> 
+                        <p class="card-text">Frequency : Every day</p>
+
+                    <%}else {  %> 
+                        <p class="card-text"> Frequency : Every <%= friend.level%> days</p>
+
+                    <% } %>     
+
+                    <p class="card-text">Next Scheduled for <span class="teal-colour"><%= friend.displayedNextDate%></span></p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-description">
-                        <%= friend.description%>
-                    </li>
-                </ul>
+                <% if(friend.description == "  "){ %> 
+                    <ul class="list-group list-group-flush pb-3">
+                        <li class="list-group-item text-description">
+                             <%= friend.description%>
+                        </li>
+                    </ul>
+                <% }else { %> 
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-description">
+                             <%= friend.description%>
+                        </li>
+                    </ul>
+                <% } %>          
+              
                 <div class="card-body">
                     <a class="card-link btn btn-info" href="/friends/<%=friend._id%>/edit">Edit</a>
                     <form class="d-inline" action="/friends/<%=friend._id%>?_method=DELETE" method="POST">

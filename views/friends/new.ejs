@@ -2,7 +2,7 @@
     <% layout('layouts/boilerplate')%>
     <div class="">
         <div class="row">
-            <h1 class="text-center">New friend</h1>
+            <h1 class="text-center">New Reminder</h1>
             <%Date.prototype.addDays = function (days) {%>
                 <%let date = new Date(this.valueOf());%>
                 <%date.setDate(date.getDate() + days);%>
@@ -39,7 +39,7 @@
                     </div>
     
                         <div class="mb-3">
-                        <label class="form-label select" for="level"> How often (days)</label>
+                        <label class="form-label select" for="level"> How often (every x days)</label>
                         <input type="number" id="level" name="friend[level]" min="1" max="1000" required>
                         <div class="valid-feedback">Looks good</div>
                         </div>
@@ -53,10 +53,10 @@
     
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-success">Add friend</button>
+                        <button class="btn btn-success">Add Reminder</button>
                     </div>
                 </form>
-                <a href="/friends">All friends</a>
+                
             </div>
         </div>
     

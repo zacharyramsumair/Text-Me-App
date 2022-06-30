@@ -282,7 +282,7 @@ router.post("/forgot", function (req, res, next) {
 				const msg = {
 					to: user.email, // Change to your recipient
 					from: "reminderfortrinidad@gmail.com", // Change to your verified sender
-					subject: "Change Password",
+					subject: "Change Password for Remind Me",
 					text: "this is text",
 					html:
 						"You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
@@ -408,6 +408,7 @@ router.post("/reset/:token", function (req, res) {
 							user.save(function (err) {
 								req.logIn(user, function (err) {
 									done(err, user);
+									req.flash("success", "Successfully changed password!");
 									return res.redirect("/friends")
 								});
 							});

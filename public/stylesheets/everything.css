@@ -76,7 +76,7 @@ border: 2px solid white;
 
 /* border: 2px solid red; */
 
-border-radius: 4px;
+/* border-radius: 2em; */
 
 /* background: #edecee; */
 
@@ -95,6 +95,7 @@ min-width: 350px;
 	width: 100%;
 	margin: 5em 0;
 	margin-bottom: 0.5em;
+	min-height: 40em;
 }
 
 .section-people{
@@ -240,13 +241,52 @@ border: none;
 
 
 .categories-heading{
-	font-size: 10 rem;
+	font-size: 10rem;
+}
+.teal-colour{
+	color: #03DAC5;
+}
+
+.placeholder-top-half{
+	text-decoration: underline;
+}
+
+.jumbotron{
+	background-color: hsl(267, 14%, 12%); 
+	padding: 4em;
+	border-radius: 4em;
+	max-width: 872px;
+	margin: 0 auto;
+}
+
+.home-buttons{
+	display: flex;
+	justify-content: space-around;
+}
+
+.register-button-home{
+	/* margin-left: 5em; */
+	
+	justify-content: center;
+}
+
+#add-friend{
+	margin: 2em;
+}
+
+
+.card-title-main{
+	font-weight: bold;
+	/* text-decoration:underline; */
+	/* color: #03DAC5; */
+	text-transform: uppercase;
 }
 
 
 
-
-
+.card-today:hover , .card-upcoming:hover, .card-section:hover {
+	box-shadow: 0 0 5px  hsl(267, 14%, 40%);
+}
 
 
 
