@@ -33,7 +33,7 @@ router.post(
 			const registeredUser = await User.register(user, password);
 			req.login(registeredUser, (err) => {
 				if (err) return next(err);
-				req.flash("success", "Welcome to Text App!");
+				req.flash("success", "Welcome to Remind Me!");
 				res.redirect("/friends");
 			});
 		} catch (e) {
